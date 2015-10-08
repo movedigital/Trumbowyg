@@ -1119,9 +1119,23 @@ jQuery.trumbowyg = {
                     l = fd.label,
                     n = (fd.name) ? fd.name : f;
 
-                html += '<label><input type="'+(fd.type || 'text')+'" name="'+n+'" value="'+(fd.value || '')+'"><span class="'+prefix+'input-infos"><span>'+
+                if(fd.options) {
+                    html += '<label><select name="'+n+'">';
+
+                    for(var j in fd.options) {
+                        var op = fd.options[j];
+
+                        html += '<option value="'+op.value+'" '+(op.value === fd.value ? 'selected="selected"' : '')+'>'+op.text+'</option>';
+                    }
+
+                    html += '</select><span class="'+prefix+'input-infos"><span>'+
                             ((!l) ? (lg[f] ? lg[f] : f) : (lg[l] ? lg[l] : l))+
                             '</span></span></label>';
+                } else {
+                    html += '<label><input type="'+(fd.type || 'text')+'" name="'+n+'" value="'+(fd.value || '')+'"><span class="'+prefix+'input-infos"><span>'+
+                            ((!l) ? (lg[f] ? lg[f] : f) : (lg[l] ? lg[l] : l))+
+                            '</span></span></label>';
+                }
             }
 
             return t.openModal(title, html)
@@ -1131,7 +1145,7 @@ jQuery.trumbowyg = {
                     v = {}; // values
 
                 for(var f in fields){
-                    var $field = $('input[name="'+f+'"]', $form);
+                    var $field = $('[name="'+f+'"]', $form);
 
                     v[f] = $.trim($field.val());
 
