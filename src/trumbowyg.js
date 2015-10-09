@@ -931,7 +931,14 @@ jQuery.trumbowyg = {
                     value: t.getSelectedText()
                 },
                 target: {
-                    label: t.lang.target
+                    label: t.lang.target,
+                    options: [{
+                      text: "Interno",
+                      value: "_self"
+                    }, {
+                      text: "Externo",
+                      value: "_blank"
+                    }]
                 }
             }, function(v){ // v is value
                 var link = $(['<a href="', v.url, '">', v.text, '</a>'].join(''));
